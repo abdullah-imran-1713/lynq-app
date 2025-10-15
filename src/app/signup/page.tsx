@@ -87,9 +87,11 @@ export default function SignupPage() {
       sessionStorage.setItem('verificationType', 'signup');
 
       router.push('/verify-otp');
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'Signup failed';
       console.error('❌ Error:', error);
-      setError(error.message || 'Signup failed');
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -306,7 +308,7 @@ export default function SignupPage() {
           </form>
 
           <p className="text-white/50 text-sm text-center mt-6">
-            We'll send a verification code to your email
+            We&apos;ll send a verification code to your email
           </p>
 
           {/* Divider */}

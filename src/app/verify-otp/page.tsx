@@ -114,9 +114,11 @@ export default function VerifyOTPPage() {
 
       // Redirect to home
       router.push('/');
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'Invalid verification code';
       console.error('❌ Verification error:', error);
-      setError(error.message || 'Invalid verification code');
+      setError(errorMessage);
 
       // Clear OTP on error
       setOtp(['', '', '', '', '', '']);
@@ -156,8 +158,10 @@ export default function VerifyOTPPage() {
 
       // Hide success message after 3 seconds
       setTimeout(() => setResendSuccess(false), 3000);
-    } catch (error: any) {
-      setError(error.message || 'Failed to resend code');
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'Failed to resend code';
+      setError(errorMessage);
     } finally {
       setResendLoading(false);
     }
@@ -197,7 +201,7 @@ export default function VerifyOTPPage() {
           {/* Heading */}
           <h1 className="text-3xl font-bold text-white text-center mb-3">
             {verificationType === 'login'
-              ? "Verifying it's you"
+              ? 'Verifying it&apos;s you'
               : 'Check your email'}
           </h1>
 
@@ -260,7 +264,9 @@ export default function VerifyOTPPage() {
 
           {/* Resend */}
           <div className="text-center">
-            <p className="text-white/50 text-sm mb-2">Didn't receive code?</p>
+            <p className="text-white/50 text-sm mb-2">
+              Didn&apos;t receive code?
+            </p>
             <button
               onClick={handleResendOTP}
               disabled={resendLoading}

@@ -57,9 +57,11 @@ export default function LoginPage() {
 
       // Redirect to OTP page
       router.push('/verify-otp');
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'Login failed';
       console.error('❌ Login error:', error);
-      setError(error.message || 'Login failed');
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -172,7 +174,7 @@ export default function LoginPage() {
           </form>
 
           <p className="text-white/50 text-sm text-center mt-6">
-            We'll verify it's really you with a code
+            We&apos;ll verify it&apos;s really you with a code
           </p>
 
           {/* Divider */}
@@ -182,7 +184,7 @@ export default function LoginPage() {
             </div>
             <div className="relative flex justify-center text-sm">
               <span className="px-4 bg-black/40 text-white/50">
-                Don't have an account?
+                Don&apos;t have an account?
               </span>
             </div>
           </div>
